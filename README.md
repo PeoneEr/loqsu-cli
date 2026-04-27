@@ -12,7 +12,7 @@ Single-file Go binary, no external dependencies. Shorten a URL in one command, g
 ## Quickstart
 
 ```bash
-curl -fsSL https://loq.su/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
 loqsu https://example.com/very/long/path
 ```
 
@@ -21,10 +21,12 @@ loqsu https://example.com/very/long/path
 ### Install script (recommended)
 
 ```bash
-curl -fsSL https://loq.su/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
 ```
 
-Detects your OS and architecture, downloads the binary to `/usr/local/bin/loqsu`.
+The script lives in [this repo](install.sh) — review it before piping to `sh` if you'd like. It detects your OS and architecture, downloads the matching archive from [GitHub Releases](https://github.com/PeoneEr/loqsu-cli/releases), verifies the SHA-256 against `SHA256SUMS.txt`, and installs into `/usr/local/bin` (or `~/.local/bin` if there's no sudo).
+
+Options: `--prefix=<dir>` to pick the install root, `--version=vX.Y.Z` to pin a release.
 
 ### Manual download
 
