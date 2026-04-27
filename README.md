@@ -85,14 +85,7 @@ loqsu [flags] -          read URL from stdin
 | `--expires <value>` | `-e` | Expiration: RFC3339 timestamp or duration (`30d`, `12h`, `5m`, `60s`) |
 | `--max-clicks <N>` | `-m` | Deactivate link after N clicks (0 = unlimited) |
 | `--json` | `-j` | Print full JSON response instead of just the short URL |
-| `--server <url>` | `-s` | API server base URL (default: `$LOQSU_SERVER` or `https://loq.su`) |
 | `--version` | `-V` | Print version and exit |
-
-**Environment:**
-
-| Variable | Description |
-|----------|-------------|
-| `LOQSU_SERVER` | Override the default API server |
 
 ## Examples
 
@@ -121,22 +114,7 @@ echo https://example.com | loqsu -
 
 # Get full JSON response and extract the slug with jq
 loqsu --json https://example.com | jq -r .slug
-
-# Use a self-hosted instance
-LOQSU_SERVER=https://your-instance.example.com loqsu https://example.com
 ```
-
-## Self-hosting
-
-Point `loqsu` at any API-compatible server with `--server` or `LOQSU_SERVER`:
-
-```bash
-LOQSU_SERVER=https://your-instance.example.com loqsu https://example.com
-# or per-call:
-loqsu -s https://your-instance.example.com https://example.com
-```
-
-The server must implement the `POST /api/links` endpoint described below.
 
 ## API contract
 
