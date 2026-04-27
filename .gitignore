@@ -1,0 +1,7 @@
+/loqsu
+/loqsu-cli
+/dist/
+*.exe
+*.test
+*.out
+.DS_Store
