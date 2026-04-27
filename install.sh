@@ -1,18 +1,18 @@
 #!/bin/sh
 # loqsu installer — fetches the latest release from
 # https://github.com/PeoneEr/loqsu-cli/releases and installs the
-# `loqsu` binary into a bin directory on $PATH.
+# `loqsu` binary into ~/.local/bin (no sudo, no system writes).
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
-#   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/.local
+#   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
 #   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
 
 set -eu
 
 REPO="PeoneEr/loqsu-cli"
 NAME="loqsu"
-PREFIX=""
+PREFIX="$HOME/.local"
 VERSION=""
 
 while [ $# -gt 0 ]; do
@@ -22,11 +22,19 @@ while [ $# -gt 0 ]; do
         --version=*) VERSION="${1#*=}" ;;
         --version)   VERSION="${2:-}"; shift ;;
         -h|--help)
-            sed -n '2,8p' "$0" 2>/dev/null || cat <<'USAGE'
+            cat <<'USAGE'
 loqsu installer
-  curl -fsSL https://loq.su/install.sh | sh
-  curl -fsSL https://loq.su/install.sh | sh -s -- --prefix=$HOME/.local
-  curl -fsSL https://loq.su/install.sh | sh -s -- --version=v0.2.0
+
+Installs the latest loqsu binary into ~/.local/bin by default. No sudo.
+
+Usage:
+  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
+  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
+
+Options:
+  --prefix=<dir>     Install root, binary goes into <dir>/bin (default: ~/.local)
+  --version=<vX.Y.Z> Pin to a specific release (default: latest)
 USAGE
             exit 0
             ;;
@@ -48,14 +56,6 @@ case "$(uname -m)" in
     *) echo "loqsu: unsupported arch: $(uname -m)" >&2; exit 1 ;;
 esac
 
-# --- pick install prefix ---
-if [ -z "$PREFIX" ]; then
-    if [ -w "/usr/local/bin" ] || command -v sudo >/dev/null 2>&1; then
-        PREFIX="/usr/local"
-    else
-        PREFIX="$HOME/.local"
-    fi
-fi
 DEST="$PREFIX/bin"
 
 # --- resolve version ---
@@ -109,20 +109,26 @@ if [ ! -f "$TMP/$NAME" ]; then
     exit 1
 fi
 
-mkdir -p "$DEST"
-if [ -w "$DEST" ]; then
-    install -m 0755 "$TMP/$NAME" "$DEST/$NAME"
-else
-    echo "  installing into $DEST (sudo)"
-    sudo install -m 0755 "$TMP/$NAME" "$DEST/$NAME"
+if ! mkdir -p "$DEST" 2>/dev/null; then
+    echo "loqsu: cannot create $DEST — pick a writable --prefix" >&2
+    exit 1
 fi
+if [ ! -w "$DEST" ]; then
+    echo "loqsu: $DEST is not writable — pick a writable --prefix" >&2
+    exit 1
+fi
+install -m 0755 "$TMP/$NAME" "$DEST/$NAME"
 
 echo
 echo "Installed: $("$DEST/$NAME" --version 2>/dev/null || echo "$DEST/$NAME")"
 
 case ":$PATH:" in
     *":$DEST:"*) ;;
-    *) echo "Note: $DEST is not on \$PATH yet — add it to your shell rc." ;;
+    *)
+        echo
+        echo "Note: $DEST is not on \$PATH. Add it to your shell rc:"
+        echo "  echo 'export PATH=\"$DEST:\$PATH\"' >> ~/.profile"
+        ;;
 esac
 
 echo "Try:  $NAME https://example.com/very/long/path"

@@ -24,9 +24,11 @@ loqsu https://example.com/very/long/path
 curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
 ```
 
-The script lives in [this repo](install.sh) — review it before piping to `sh` if you'd like. It detects your OS and architecture, downloads the matching archive from [GitHub Releases](https://github.com/PeoneEr/loqsu-cli/releases), verifies the SHA-256 against `SHA256SUMS.txt`, and installs into `/usr/local/bin` (or `~/.local/bin` if there's no sudo).
+The script lives in [this repo](install.sh) — review it before piping to `sh` if you'd like. It detects your OS and architecture, downloads the matching archive from [GitHub Releases](https://github.com/PeoneEr/loqsu-cli/releases), verifies the SHA-256 against `SHA256SUMS.txt`, and installs into `~/.local/bin`. **No sudo, no system writes.**
 
-Options: `--prefix=<dir>` to pick the install root, `--version=vX.Y.Z` to pin a release.
+If `~/.local/bin` isn't on your `$PATH`, the installer prints the one-line snippet to add it.
+
+Options: `--prefix=<dir>` to install into `<dir>/bin` (e.g. `--prefix=$HOME/bin`), `--version=vX.Y.Z` to pin a release.
 
 ### Manual download
 
@@ -45,7 +47,7 @@ curl -fsSL "https://github.com/PeoneEr/loqsu-cli/releases/download/${VERSION}/SH
   | grep "loqsu_${VERSION}_${OS}_${ARCH}.tar.gz" | sha256sum -c
 
 tar -xzf loqsu.tar.gz
-sudo mv loqsu /usr/local/bin/loqsu
+install -m 0755 loqsu ~/.local/bin/loqsu
 ```
 
 Windows users: download the `.zip` archive from the same release page.
