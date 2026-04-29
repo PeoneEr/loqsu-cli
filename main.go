@@ -117,7 +117,7 @@ func run(ctx context.Context, args []string, stdin io.Reader, stdout, stderr io.
 		fmt.Fprintf(stderr, "  loqsu --json https://example.com | jq .slug\n\n")
 		fmt.Fprintf(stderr, "Environment:\n")
 		fmt.Fprintf(stderr, "  LOQSU_SERVER       override the default API server\n")
-		fmt.Fprintf(stderr, "\nSource: https://github.com/PeoneEr/loqsu-cli\n")
+		fmt.Fprintf(stderr, "\nSource: https://github.com/loqsu/loqsu-cli\n")
 	}
 
 	if err := fs.Parse(args); err != nil {

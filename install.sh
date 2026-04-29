@@ -1,16 +1,16 @@
 #!/bin/sh
 # loqsu installer — fetches the latest release from
-# https://github.com/PeoneEr/loqsu-cli/releases and installs the
+# https://github.com/loqsu/loqsu-cli/releases and installs the
 # `loqsu` binary into ~/.local/bin (no sudo, no system writes).
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
-#   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
-#   curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
+#   curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
+#   curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
 
 set -eu
 
-REPO="PeoneEr/loqsu-cli"
+REPO="loqsu/loqsu-cli"
 NAME="loqsu"
 PREFIX="$HOME/.local"
 VERSION=""
@@ -28,9 +28,9 @@ loqsu installer
 Installs the latest loqsu binary into ~/.local/bin by default. No sudo.
 
 Usage:
-  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
-  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
-  curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
+  curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh -s -- --prefix=$HOME/bin
+  curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh -s -- --version=v0.2.0
 
 Options:
   --prefix=<dir>     Install root, binary goes into <dir>/bin (default: ~/.local)

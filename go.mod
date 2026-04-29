@@ -1,3 +1,3 @@
-module github.com/PeoneEr/loqsu-cli
+module github.com/loqsu/loqsu-cli
 
 go 1.26

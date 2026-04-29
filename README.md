@@ -2,17 +2,17 @@
 
 Command-line client for the [loq.su](https://loq.su) URL shortener.
 
-![CI](https://github.com/PeoneEr/loqsu-cli/actions/workflows/ci.yml/badge.svg)
-![Release](https://img.shields.io/github/v/release/PeoneEr/loqsu-cli)
-![License](https://img.shields.io/github/license/PeoneEr/loqsu-cli)
-![Go](https://img.shields.io/github/go-mod/go-version/PeoneEr/loqsu-cli)
+![CI](https://github.com/loqsu/loqsu-cli/actions/workflows/ci.yml/badge.svg)
+![Release](https://img.shields.io/github/v/release/loqsu/loqsu-cli)
+![License](https://img.shields.io/github/license/loqsu/loqsu-cli)
+![Go](https://img.shields.io/github/go-mod/go-version/loqsu/loqsu-cli)
 
 Single-file Go binary, no external dependencies. Shorten a URL in one command, get a short link back. That's it.
 
 ## Quickstart
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh
 loqsu https://example.com/very/long/path
 ```
 
@@ -21,10 +21,10 @@ loqsu https://example.com/very/long/path
 ### Install script (recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/PeoneEr/loqsu-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/loqsu/loqsu-cli/main/install.sh | sh
 ```
 
-The script lives in [this repo](install.sh) — review it before piping to `sh` if you'd like. It detects your OS and architecture, downloads the matching archive from [GitHub Releases](https://github.com/PeoneEr/loqsu-cli/releases), verifies the SHA-256 against `SHA256SUMS.txt`, and installs into `~/.local/bin`. **No sudo, no system writes.**
+The script lives in [this repo](install.sh) — review it before piping to `sh` if you'd like. It detects your OS and architecture, downloads the matching archive from [GitHub Releases](https://github.com/loqsu/loqsu-cli/releases), verifies the SHA-256 against `SHA256SUMS.txt`, and installs into `~/.local/bin`. **No sudo, no system writes.**
 
 If `~/.local/bin` isn't on your `$PATH`, the installer prints the one-line snippet to add it.
 
@@ -32,18 +32,18 @@ Options: `--prefix=<dir>` to install into `<dir>/bin` (e.g. `--prefix=$HOME/bin`
 
 ### Manual download
 
-Download a tarball from [GitHub Releases](https://github.com/PeoneEr/loqsu-cli/releases), verify the checksum, and install:
+Download a tarball from [GitHub Releases](https://github.com/loqsu/loqsu-cli/releases), verify the checksum, and install:
 
 ```bash
 VERSION=v0.1.0
 OS=linux       # linux | darwin | windows
 ARCH=amd64     # amd64 | arm64
 
-curl -fsSL "https://github.com/PeoneEr/loqsu-cli/releases/download/${VERSION}/loqsu_${VERSION}_${OS}_${ARCH}.tar.gz" \
+curl -fsSL "https://github.com/loqsu/loqsu-cli/releases/download/${VERSION}/loqsu_${VERSION}_${OS}_${ARCH}.tar.gz" \
   -o loqsu.tar.gz
 
 # Verify checksum
-curl -fsSL "https://github.com/PeoneEr/loqsu-cli/releases/download/${VERSION}/SHA256SUMS.txt" \
+curl -fsSL "https://github.com/loqsu/loqsu-cli/releases/download/${VERSION}/SHA256SUMS.txt" \
   | grep "loqsu_${VERSION}_${OS}_${ARCH}.tar.gz" | sha256sum -c
 
 tar -xzf loqsu.tar.gz
@@ -55,7 +55,7 @@ Windows users: download the `.zip` archive from the same release page.
 ### go install
 
 ```bash
-go install github.com/PeoneEr/loqsu-cli@latest
+go install github.com/loqsu/loqsu-cli@latest
 ```
 
 Note: the binary will be named `loqsu-cli` (the module name). Rename or symlink it if you want `loqsu`:
@@ -67,7 +67,7 @@ ln -s "$(go env GOPATH)/bin/loqsu-cli" /usr/local/bin/loqsu
 ### From source
 
 ```bash
-git clone https://github.com/PeoneEr/loqsu-cli.git
+git clone https://github.com/loqsu/loqsu-cli.git
 cd loqsu-cli
 go build -o loqsu .
 ```
@@ -169,8 +169,8 @@ MIT. See [LICENSE](LICENSE).
 - Service: https://loq.su
 - API docs: https://loq.su/docs
 - Terms of use: https://loq.su/terms
-- Releases: https://github.com/PeoneEr/loqsu-cli/releases
-- Issues: https://github.com/PeoneEr/loqsu-cli/issues
+- Releases: https://github.com/loqsu/loqsu-cli/releases
+- Issues: https://github.com/loqsu/loqsu-cli/issues
 
 ---
 
